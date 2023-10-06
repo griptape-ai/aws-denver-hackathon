@@ -12,13 +12,14 @@ from examples import utils
 namespace = "attention"
 
 response = requests.get("https://arxiv.org/pdf/1706.03762.pdf")
-engine = VectorQueryEngine(
+query_engine = VectorQueryEngine(
+    prompt_driver=utils.prompt_driver(),
     vector_store_driver=LocalVectorStoreDriver(
         embedding_driver=utils.embedding_driver()
     )
 )
 
-engine.upsert_text_artifacts(
+query_engine.upsert_text_artifacts(
     namespace=namespace,
     artifacts=PdfLoader().load(
         io.BytesIO(response.content)
@@ -27,7 +28,7 @@ engine.upsert_text_artifacts(
 
 vector_store_client = VectorStoreClient(
     description="Contains information about the Attention Is All You Need paper.",
-    query_engine=engine,
+    query_engine=query_engine,
     namespace=namespace
 )
 

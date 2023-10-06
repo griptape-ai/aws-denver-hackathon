@@ -10,6 +10,7 @@ This repository contains [Griptape](https://www.griptape.ai/) examples for the A
 * Question-answering.
 * Retrieval-augmented generation (RAG).
 * Agents and dynamic RAG.
+* Pipeline with multiple sequential tasks.
 
 ## Resources
 * [Griptape Docs](https://docs.griptape.ai/)
