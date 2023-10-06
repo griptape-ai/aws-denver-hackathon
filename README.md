@@ -15,3 +15,4 @@ This repository contains [Griptape](https://www.griptape.ai/) examples for the A
 * [Griptape Docs](https://docs.griptape.ai/)
 * [Griptape Deep Dive](https://www.griptape.ai/articles/griptape-deep-dive)
 * [Griptape Courses](https://learn.griptape.ai/)
+* [Griptape Discord](https://discord.gg/gnWRz88eym)
