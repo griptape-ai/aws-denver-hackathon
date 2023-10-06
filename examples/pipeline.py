@@ -1,7 +1,7 @@
 from griptape.structures import Pipeline
 from griptape.tasks import ToolkitTask, PromptTask
 from griptape.tools import WebScraper
-from examples import utils
+import utils
 
 pipeline = Pipeline(
     prompt_driver=utils.prompt_driver(),
