@@ -18,15 +18,14 @@ engine = VectorQueryEngine(
     )
 )
 
-engine.vector_store_driver.upsert_text_artifacts(
-    {
-        namespace: PdfLoader().load(
-            io.BytesIO(response.content)
-        )
-    }
+engine.upsert_text_artifacts(
+    namespace=namespace,
+    artifacts=PdfLoader().load(
+        io.BytesIO(response.content)
+    )
 )
 
-kb_client = VectorStoreClient(
+vector_store_client = VectorStoreClient(
     description="Contains information about the Attention Is All You Need paper.",
     query_engine=engine,
     namespace=namespace
@@ -36,7 +35,7 @@ agent = Agent(
     tool_memory=None,
     prompt_driver=utils.prompt_driver(),
     embedding_driver=utils.embedding_driver(),
-    tools=[kb_client]
+    tools=[vector_store_client]
 )
 
 Chat(agent).start()
