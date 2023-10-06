@@ -9,4 +9,3 @@ This repository contains examples for the Denver AWS hackathon:
 * Text summarization.
 * Retrieval-augmented generation (RAG) and question-answering.
 * Agents and dynamic RAG.
-* 
