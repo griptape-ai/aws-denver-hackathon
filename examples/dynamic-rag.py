@@ -1,7 +1,6 @@
 from griptape.structures import Agent
 from griptape.tools import WebScraper, FileManager
-from examples import utils
-
+import utils
 
 agent = Agent(
     prompt_driver=utils.prompt_driver(),

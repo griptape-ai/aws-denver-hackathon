@@ -3,7 +3,7 @@ from griptape.engines import VectorQueryEngine
 from griptape.structures import Pipeline
 from griptape.tasks import ToolkitTask, TextQueryTask, PromptTask
 from griptape.tools import WebScraper
-from examples import utils
+import utils
 
 
 pipeline = Pipeline(
