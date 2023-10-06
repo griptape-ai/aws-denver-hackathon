@@ -6,8 +6,8 @@ from griptape.loaders import PdfLoader
 from griptape.structures import Agent
 from griptape.tools import VectorStoreClient
 from griptape.utils import Chat
-
 from examples import utils
+
 
 namespace = "attention"
 
