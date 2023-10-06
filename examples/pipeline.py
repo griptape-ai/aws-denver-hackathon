@@ -20,7 +20,7 @@ pipeline.add_tasks(
                        "Based on the summary, answer the following question: {{ args[1] }}"
     ),
     PromptTask(
-        input_template="Turn the following text into a Twitter thread: {{ parent_output }}"
+        input_template="Turn the following text into a fun Twitter thread: {{ parent_output }}"
     )
 )
 
