@@ -1,18 +1,46 @@
+from griptape.chunkers import TextChunker
+from griptape.drivers import LocalVectorStoreDriver
+from griptape.engines import VectorQueryEngine
+from griptape.loaders import WebLoader
 from griptape.structures import Agent
+from griptape.tasks import TextQueryTask
 import utils
 
-text = """Amazon Bedrock is a fully managed service that offers a choice of high-performing foundation models (FMs) from leading AI companies like AI21 Labs, Anthropic, Cohere, Meta, Stability AI, and Amazon with a single API, along with a broad set of capabilities you need to build generative AI applications, simplifying development while maintaining privacy and security. With the comprehensive capabilities of Amazon Bedrock, you can easily experiment with a variety of top FMs, privately customize them with your data using techniques such as fine-tuning and retrieval augmented generation (RAG), and create managed agents that execute complex business tasks—from booking travel and processing insurance claims to creating ad campaigns and managing inventory—all without writing any code. Since Amazon Bedrock is serverless, you don't have to manage any infrastructure, and you can securely integrate and deploy generative AI capabilities into your applications using the AWS services you are already familiar with.
-"""
+
+namespace = "bedrock"
+url = "https://www.aboutamazon.com/news/aws/aws-amazon-bedrock-general-availability-generative-ai-innovations"
+
+artifacts = WebLoader(
+    chunker=TextChunker(
+        max_tokens=200
+    )
+).load(url)
+
+query_engine = VectorQueryEngine(
+    prompt_driver=utils.prompt_driver(),
+    vector_store_driver=LocalVectorStoreDriver(
+        embedding_driver=utils.embedding_driver()
+    )
+)
+
+query_engine.upsert_text_artifacts(
+    namespace=namespace,
+    artifacts=artifacts
+)
 
 agent = Agent(
-    input_template=f"Answer questions only based on the following text:\n\n{text}\n\n"
-                   "{{ args[0] }}",
     prompt_driver=utils.prompt_driver(),
     embedding_driver=utils.embedding_driver()
+)
+
+agent.add_task(
+    TextQueryTask(
+        query_engine=query_engine
+    )
 )
 
 question = "What models does Bedrock support?"
 
 print(
-    agent.run(question).output.to_text()
+    agent.run("What models does Bedrock support?").output.to_text()
 )
